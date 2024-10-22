@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+타입스크립트 기반 Next.js 에서 전역 상태관리 라이브러리 Jotai 테스트.
 
-## Getting Started
+## Jotai 설치
+yarn add jotai
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Jotai 초기값 선언
+```javascript
+import { atom } from 'jotai';
+
+export const authStateAtom = atom({
+  loginType: null,
+  loginCode: ""
+});
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Jotai 값 읽기
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+단순 값 읽기는 `useAtomValue` 사용
 
-## Learn More
+```jsx
+import { useAtomValue } from 'jotai'
 
-To learn more about Next.js, take a look at the following resources:
+const auth = useAtomValue(authStateAtom);
+console.log(auth.loginType)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Jotai 값 업데이트
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+단순 값 업데이트는 `useSetAtom` 사용
 
-## Deploy on Vercel
+## Jotai 값 읽고, 업데이트
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+값 읽기 및 업데이트는 `useAtom` 사용
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```jsx
+import { useAtom } from 'jotai'
+
+const [authState, setAuthState] = useAtom(authStateAtom);
+
+const newType = 'NEWTYPE';
+setAuthState((auth) => ({
+  ...auth,
+  loginType: newType,
+}));
+```
