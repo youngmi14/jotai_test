@@ -1,8 +1,9 @@
 타입스크립트 기반 Next.js 에서 전역 상태관리 라이브러리 Jotai 테스트.
 
 ## Jotai 설치
+```bash
 yarn add jotai
-
+```
 
 ## Jotai 초기값 선언
 ```javascript
